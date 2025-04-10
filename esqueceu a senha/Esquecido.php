@@ -40,8 +40,8 @@
       
 
             <div class="text-center">
-              <a href="../cadastro/cadastro.php">Não cadastrado? cadastro</a>
-              <a href="../index.php">voçê lembrou? login</a>
+            <p>  <a href="../cadastro/cadastro.php">Não cadastrado? cadastro</a> </p>
+             <p> <a href="../index.php">voçê lembrou? login</a> </p>
 
            
             </div>
