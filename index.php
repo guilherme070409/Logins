@@ -44,7 +44,7 @@
             <button type="submit" class="btn btn-primary btn-block mb-4">Logar</button>
       
             <div class="text-center">
-              <p>Não cadastrado? <a href="cadastro/cadastro.html">cadastro</a></p>
+              <p>Não cadastrado? <a href="cadastro/cadastro.php">cadastro</a></p>
             </div>
       </form>
   </div>
