@@ -11,11 +11,11 @@
   <div class="login-container">
     <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="tab-login" data-mdb-pill-init href="../index.html" role="tab"
+          <a class="nav-link" id="tab-login" data-mdb-pill-init href="../index.php" role="tab"
             aria-controls="pills-login" aria-selected="true">Login</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="tab-register" data-mdb-pill-init href="cadastro.html" role="tab"
+          <a class="nav-link active" id="tab-register" data-mdb-pill-init href="cadastro.php" role="tab"
             aria-controls="pills-register" aria-selected="true">Cadastro</a>
         </li>
     </ul>
