@@ -11,10 +11,10 @@
   <div class="login-container">
       <ul class="nav nav-pills nav-justified mb-3">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Login</a>
+          <a class="nav-link active" href="index.php">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="cadastro/cadastro.html">Cadastro</a>
+          <a class="nav-link" href="cadastro/cadastro.php">Cadastro</a>
         </li>
       </ul>
 
@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div class="col-md-6 d-flex justify-content-center">
-                <a href="esqueceu a senha/Esquecido.html">Esqueceu a senha?</a>
+                <a href="esqueceu a senha/Esquecido.php">Esqueceu a senha?</a>
               </div>
             </div>
       
