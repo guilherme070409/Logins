@@ -22,29 +22,29 @@
 
     <p class="text-center">or:</p>
 
-    <form> <!-- Adicionei a tag form que estava faltando -->
+    <form action="../controler/CadastroControler.php" method="POST"> 
       <div data-mdb-input-init class="form-outline mb-4">
-        <input type="text" id="registerName" class="form-control" />
+        <input type="text" name="Nome" id="registerName" class="form-control" />
         <label class="form-label" for="registerName">Nome</label>
       </div>
 
       <div data-mdb-input-init class="form-outline mb-4">
-        <input type="text" id="registerUsername" class="form-control" />
+        <input type="text" name="Usuario" id="registerUsername" class="form-control" />
         <label class="form-label" for="registerUsername">Nome de Usuario</label>
       </div>
 
       <div data-mdb-input-init class="form-outline mb-4">
-        <input type="email" id="registerEmail" class="form-control" />
+        <input type="email" name="Email id="registerEmail" class="form-control" />
         <label class="form-label" for="registerEmail">Email</label>
       </div>
 
       <div data-mdb-input-init class="form-outline mb-4">
-        <input type="password" id="registerPassword" class="form-control" />
+        <input type="password" name="Senha" id="registerPassword" class="form-control" />
         <label class="form-label" for="registerPassword">Senha</label>
       </div>
 
       <div data-mdb-input-init class="form-outline mb-4">
-        <input type="password" id="registerRepeatPassword" class="form-control" />
+        <input type="password" name="repita" id="registerRepeatPassword" class="form-control" />
         <label class="form-label" for="registerRepeatPassword">Repita a senha</label>
       </div>
 
