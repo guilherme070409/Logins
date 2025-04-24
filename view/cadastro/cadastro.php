@@ -8,6 +8,22 @@
     <title>Login</title>
 </head>
 <body>
+
+<?php
+session_start();
+// Mostra mensagem de sucesso
+if(isset($_SESSION['msg_sucesso'])){
+    echo "<div class='alert alert-success'>".$_SESSION['msg_sucesso']."</div>";
+    unset($_SESSION['msg_sucesso']);
+}
+
+// Mostra mensagem de erro
+if(isset($_SESSION['msg_erro'])){
+    echo "<div class='alert alert-danger'>".$_SESSION['msg_erro']."</div>";
+    unset($_SESSION['msg_erro']);
+}
+?>
+
   <div class="login-container">
     <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
         <li class="nav-item" role="presentation">
