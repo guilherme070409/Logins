@@ -22,7 +22,7 @@ if($_POST){
         
         if($result){
             $_SESSION['msg_sucesso'] = "cadastro realizado com sucesso!";
-            header("Location: ../view/index.php");
+            header("Location: ../index.php");
             exit();
         } else {
             $_SESSION['msg_erro'] = "Não foi possível realizar o cadastro.";
