@@ -17,12 +17,12 @@ class AuthController {
                     exit();
                 } else {
                     $_SESSION['msg_erro'] = "Email ou senha incorretos!";
-                    header("Location: ../view/index/login.php");
+                    header("Location: ../view/index.php");
                     exit();
                 }
             } catch (Exception $e) {
                 $_SESSION['msg_erro'] = "Erro: " . $e->getMessage();
-                header("Location: ../view/index/login.php");
+                header("Location: ../view/index.php");
                 exit();
             }
         }
@@ -40,7 +40,7 @@ class AuthController {
             
 
             $_SESSION['msg_recuperacao'] = "Se o email existir, enviaremos um link!";
-            header("Location: ../view/outra_pasta/esquecido.php");
+            header("Location: ../view/esqueceu a senha/esquecido.php");
             exit();
         }
     }

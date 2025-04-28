@@ -26,16 +26,16 @@ if($_POST){
         
         if($result){
             $_SESSION['msg_sucesso'] = "Cadastro realizado com sucesso!";
-            header("Location: ../view/index/login.php");
+            header("Location: ../view/index.php");
             exit();
         } else {
             $_SESSION['msg_erro'] = "Não foi possível realizar o cadastro.";
-            header("Location: ../view/Cadastro/cadastro.php");
+            header("Location: ../view/cadastro/cadastro.php");
             exit();
         }
     } catch (Exception $e) {
         $_SESSION['msg_erro'] = "Erro: " . $e->getMessage();
-        header("Location: ../view/Cadastro/cadastro.php");
+        header("Location: ../view/cadastro/cadastro.php");
         exit();
     }
 }
