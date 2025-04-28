@@ -18,6 +18,7 @@
 <?php
 session_start();
 
+// Exibindo mensagens de sucesso ou erro se existirem
 if(isset($_SESSION['msg_sucesso'])){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
             ".$_SESSION['msg_sucesso']."
