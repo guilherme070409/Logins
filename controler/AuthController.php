@@ -13,7 +13,7 @@ class AuthController {
             try {
                 if(loginUser($email, $password)){
                     $_SESSION['msg_sucesso'] = "Login realizado com sucesso!";
-                    header("Location: ../view/pagina_inicial.php"); // Redireciona para área logada
+                    header("Location: ../view/pagina_inicial.php");
                     exit();
                 } else {
                     $_SESSION['msg_erro'] = "Email ou senha incorretos!";
@@ -30,8 +30,19 @@ class AuthController {
     
     public static function logout() {
         session_destroy();
-        header("Location: ../view/index/login.php");
+        header("Location: ../view/index.php");
         exit();
     }
-}
+
+    public static function recuperarSenha() {
+        if($_POST && isset($_POST['email'])) {
+            $email = $_POST['email'];
+            
+
+            $_SESSION['msg_recuperacao'] = "Se o email existir, enviaremos um link!";
+            header("Location: ../view/outra_pasta/esquecido.php");
+            exit();
+        }
+    }
+} 
 ?>

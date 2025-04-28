@@ -76,7 +76,6 @@ if(isset($_SESSION['msg_erro'])){
     </form>
   </div>
 
-  <!-- Adicione os scripts do Bootstrap no final do body -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous"></script>
 </body>
 </html>
