@@ -1,6 +1,4 @@
-
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -8,19 +6,31 @@
     <link href="login.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Login</title>
+    <style>
+        .alert {
+            margin: 15px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 <?php
 session_start();
 
 if(isset($_SESSION['msg_sucesso'])){
-    echo "<div class='alert alert-success'>".$_SESSION['msg_sucesso']."</div>";
+    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            ".$_SESSION['msg_sucesso']."
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+          </div>";
     unset($_SESSION['msg_sucesso']);
 }
 
-
 if(isset($_SESSION['msg_erro'])){
-    echo "<div class='alert alert-danger'>".$_SESSION['msg_erro']."</div>";
+    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            ".$_SESSION['msg_erro']."
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+          </div>";
     unset($_SESSION['msg_erro']);
 }
 ?>
@@ -34,14 +44,15 @@ if(isset($_SESSION['msg_erro'])){
         </li>
       </ul>
 
-      <form>
+      <form action="../controller/AuthController.php" method="post">
+        <input type="hidden" name="action" value="login">
             <div class="form-outline mb-4">
-              <input type="email" id="loginName" class="form-control" />
+              <input type="email" id="loginName" name="email" class="form-control" required />
               <label class="form-label" for="loginName">E-MAIL</label>
             </div>
       
             <div class="form-outline mb-4">
-              <input type="password" id="loginPassword" class="form-control" />
+              <input type="password" id="loginPassword" name="password" class="form-control" required />
               <label class="form-label" for="loginPassword">Senha</label>
             </div>
       
@@ -58,11 +69,9 @@ if(isset($_SESSION['msg_erro'])){
             </div>
       
             <button type="submit" class="btn btn-primary btn-block mb-4">Logar</button>
-      
-            <div class="text-center">
-              <a href="cadastro/cadastro.php">Não cadastrado?  cadastro</a>
-            </div>
       </form>
   </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
