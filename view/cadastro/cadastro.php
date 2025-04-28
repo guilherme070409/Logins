@@ -18,7 +18,6 @@
 <?php
 session_start();
 
-// Exibindo mensagens de sucesso ou erro se existirem
 if(isset($_SESSION['msg_sucesso'])){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
             ".$_SESSION['msg_sucesso']."
@@ -35,6 +34,7 @@ if(isset($_SESSION['msg_erro'])){
     unset($_SESSION['msg_erro']);
 }
 ?>
+
   <div class="login-container">
     <ul class="nav nav-pills nav-justified mb-3">
         <li class="nav-item">

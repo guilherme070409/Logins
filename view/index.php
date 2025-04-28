@@ -18,7 +18,6 @@
 <?php
 session_start();
 
-// Exibindo mensagens de sucesso ou erro se existirem
 if(isset($_SESSION['msg_sucesso'])){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
             ".$_SESSION['msg_sucesso']."
@@ -35,6 +34,7 @@ if(isset($_SESSION['msg_erro'])){
     unset($_SESSION['msg_erro']);
 }
 ?>
+
   <div class="login-container">
       <ul class="nav nav-pills nav-justified mb-3">
         <li class="nav-item">
@@ -47,29 +47,29 @@ if(isset($_SESSION['msg_erro'])){
 
       <form action="../controller/AuthController.php" method="post">
         <input type="hidden" name="action" value="login">
-            <div class="form-outline mb-4">
-              <input type="email" id="loginName" name="email" class="form-control" required />
-              <label class="form-label" for="loginName">E-MAIL</label>
+        <div class="form-outline mb-4">
+          <input type="email" id="loginName" name="email" class="form-control" required />
+          <label class="form-label" for="loginName">E-MAIL</label>
+        </div>
+  
+        <div class="form-outline mb-4">
+          <input type="password" id="loginPassword" name="password" class="form-control" required />
+          <label class="form-label" for="loginPassword">Senha</label>
+        </div>
+  
+        <div class="row mb-4">
+          <div class="col-md-6 d-flex justify-content-center">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="loginCheck" checked />
+              <label class="form-check-label" for="loginCheck"> Lembrar-me </label>
             </div>
-      
-            <div class="form-outline mb-4">
-              <input type="password" id="loginPassword" name="password" class="form-control" required />
-              <label class="form-label" for="loginPassword">Senha</label>
-            </div>
-      
-            <div class="row mb-4">
-              <div class="col-md-6 d-flex justify-content-center">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="loginCheck" checked />
-                  <label class="form-check-label" for="loginCheck"> Lembrar-me </label>
-                </div>
-              </div>
-              <div class="col-md-6 d-flex justify-content-center">
-                <a href="esqueceu a senha/Esquecido.php">Esqueceu a senha?</a>
-              </div>
-            </div>
-      
-            <button type="submit" class="btn btn-primary btn-block mb-4">Logar</button>
+          </div>
+          <div class="col-md-6 d-flex justify-content-center">
+            <a href="esqueceu a senha/Esquecido.php">Esqueceu a senha?</a>
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary btn-block mb-4">Logar</button>
       </form>
   </div>
   
