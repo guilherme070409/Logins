@@ -16,19 +16,22 @@
 </head>
 <body>
 <?php
+<?php
 session_start();
 
-if(isset($_SESSION['msg_sucesso'])){
+// Exibe mensagem de sucesso
+if (isset($_SESSION['msg_sucesso'])) {
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-            ".$_SESSION['msg_sucesso']."
+            " . $_SESSION['msg_sucesso'] . "
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
           </div>";
     unset($_SESSION['msg_sucesso']);
 }
 
-if(isset($_SESSION['msg_erro'])){
+// Exibe mensagem de erro
+if (isset($_SESSION['msg_erro'])) {
     echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            ".$_SESSION['msg_erro']."
+            " . $_SESSION['msg_erro'] . "
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
           </div>";
     unset($_SESSION['msg_erro']);
