@@ -12,7 +12,7 @@ if($_POST){
 
     if($password != $repita){
         $_SESSION['msg_erro'] = "As senhas não coincidem.";
-        header("Location: ../view/Cadastro/cadastro.php");
+        header("Location: ../view/cadastro/cadastro.php");
         exit();
     }
     
@@ -21,17 +21,17 @@ if($_POST){
         $result = register($fullName, $email, $passwordHash);
         
         if($result){
-            $_SESSION['msg_sucesso'] = "Cadastro realizado com sucesso!";
+            $_SESSION['msg_sucesso'] = "cadastro realizado com sucesso!";
             header("Location: ../view/index.php");
             exit();
         } else {
             $_SESSION['msg_erro'] = "Não foi possível realizar o cadastro.";
-            header("Location: ../view/Cadastro/cadastro.php");
+            header("Location: ../view/cadastro/cadastro.php");
             exit();
         }
     } catch (Exception $e) {
         $_SESSION['msg_erro'] = "Erro: " . $e->getMessage();
-        header("Location: ../view/Cadastro/cadastro.php");
+        header("Location: ../view/cadastro/cadastro.php");
         exit();
     }
 }

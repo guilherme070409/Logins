@@ -39,7 +39,7 @@ class AuthController {
             $email = $_POST['email'];
 
             $_SESSION['msg_recuperacao'] = "Se o email existir, enviaremos um link!";
-            header("Location: ../view/outra_pasta/esquecido.php");
+            header("Location: ../view/esqueceu a senha/esquecido.php");
             exit();
         }
     }
