@@ -3,87 +3,79 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="cadastro.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Cadastro</title>
-    <style>
-        .alert {
-            margin: 15px;
-            padding: 15px;
-            border-radius: 5px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <?php
-    if(isset($_SESSION['msg_sucesso'])){
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                ".$_SESSION['msg_sucesso']."
-                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-              </div>";
-        unset($_SESSION['msg_sucesso']);
-    }
+<body class="bg-light">
 
-    if(isset($_SESSION['msg_erro'])){
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                ".$_SESSION['msg_erro']."
-                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-              </div>";
-        unset($_SESSION['msg_erro']);
-    }
-    ?>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-  <div class="login-container">
-    <ul class="nav nav-pills nav-justified mb-3">
-        <li class="nav-item">
-          <a class="nav-link" href="../index.php">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="cadastro.php">Cadastro</a>
-        </li>
-    </ul>
+            <!-- Mensagens de sucesso ou erro -->
+            <?php if(isset($_SESSION['msg_sucesso'])): ?>
+                <div class="alert alert-success">
+                    <?php 
+                        echo $_SESSION['msg_sucesso']; 
+                        unset($_SESSION['msg_sucesso']);
+                    ?>
+                </div>
+            <?php endif; ?>
 
-    <form action="../controller/CadastroController.php" method="post">
-      <div class="form-outline mb-4">
-        <input type="text" name="Nome" id="registerName" class="form-control" required />
-        <label class="form-label" for="registerName">Nome</label>
-      </div>
+            <?php if(isset($_SESSION['msg_erro'])): ?>
+                <div class="alert alert-danger">
+                    <?php 
+                        echo $_SESSION['msg_erro']; 
+                        unset($_SESSION['msg_erro']);
+                    ?>
+                </div>
+            <?php endif; ?>
 
-      <div class="form-outline mb-4">
-        <input type="text" name="Usuario" id="registerUsername" class="form-control" required />
-        <label class="form-label" for="registerUsername">Nome de Usuario</label>
-      </div>
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Cadastro</h2>
+                </div>
+                <div class="card-body">
+                    <form action="../../controller/CadastroController.php" method="POST">
 
-      <div class="form-outline mb-4">
-        <input type="email" name="Email" id="registerEmail" class="form-control" required />
-        <label class="form-label" for="registerEmail">Email</label>
-      </div>
+                        <div class="mb-3">
+                            <label for="Nome" class="form-label">Nome completo</label>
+                            <input type="text" class="form-control" name="Nome" id="Nome" required>
+                        </div>
 
-      <div class="form-outline mb-4">
-        <input type="password" name="Senha" id="registerPassword" class="form-control" required />
-        <label class="form-label" for="registerPassword">Senha</label>
-      </div>
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="Email" id="Email" required>
+                        </div>
 
-      <div class="form-outline mb-4">
-        <input type="password" name="repita" id="registerRepeatPassword" class="form-control" required />
-        <label class="form-label" for="registerRepeatPassword">Repita a senha</label>
-      </div>
+                        <div class="mb-3">
+                            <label for="Senha" class="form-label">Senha</label>
+                            <input type="password" class="form-control" name="Senha" id="Senha" required>
+                        </div>
 
-      <div class="form-check d-flex justify-content-center mb-4">
-        <input class="form-check-input me-2" type="checkbox" id="registerCheck" required />
-        <label class="form-check-label" for="registerCheck">
-          Eu li todos os termos
-        </label>
-      </div>
+                        <div class="mb-3">
+                            <label for="repita" class="form-label">Repita a Senha</label>
+                            <input type="password" class="form-control" name="repita" id="repita" required>
+                        </div>
 
-      <button type="submit" class="btn btn-primary btn-block mb-3">Cadastrar</button>
-    </form>
-  </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+                        <div class="text-center mt-3">
+                            <a href="../../index.php" class="btn btn-link">Voltar para login</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
