@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<?php
+
 <?php
 session_start();
 
