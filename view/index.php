@@ -17,26 +17,16 @@
 <body>
 <?php
 session_start();
-
-// Exibe mensagem de sucesso
 if (isset($_SESSION['msg_sucesso'])) {
-    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-            " . $_SESSION['msg_sucesso'] . "
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-          </div>";
-    unset($_SESSION['msg_sucesso']);
+  echo '<p style="color: green">' . $_SESSION['msg_sucesso'] . '</p>';
+  unset($_SESSION['msg_sucesso']);
 }
-
-// Exibe mensagem de erro
 if (isset($_SESSION['msg_erro'])) {
-    echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            " . $_SESSION['msg_erro'] . "
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-          </div>";
-    unset($_SESSION['msg_erro']);
+  echo '<p style="color: red">' . $_SESSION['msg_erro'] . '</p>';
+  unset($_SESSION['msg_erro']);
 }
 ?>
-
+ <form action="../controller/AuthController.php" method="post">
 
   <div class="login-container">
       <ul class="nav nav-pills nav-justified mb-3">

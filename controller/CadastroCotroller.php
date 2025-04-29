@@ -18,25 +18,25 @@ require '../service/conexao.php';
 session_start();
 
 function cadastrar() {
-    if($_POST){
+    if ($_POST) {
         $fullName = $_POST['Nome'];
         $email = $_POST['Email'];
-        $password = $_POST['Senha'];
+        $senha = $_POST['Senha'];
         $repita = $_POST['repita'];
-
-        if($password != $repita){
+    
+        if ($password != $repita) {
             $_SESSION['msg_erro'] = "As senhas não coincidem.";
             header("Location: ../view/cadastro/cadastro.php");
             exit();
         }
-
+    
         try {
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
             $result = register($fullName, $email, $passwordHash);
-
-            if($result){
+    
+            if ($result) {
                 $_SESSION['msg_sucesso'] = "Cadastro realizado com sucesso!";
-                header("Location: ../index.php");
+                header("Location: ../view/index.php");
                 exit();
             } else {
                 $_SESSION['msg_erro'] = "Não foi possível realizar o cadastro.";
@@ -49,8 +49,5 @@ function cadastrar() {
             exit();
         }
     }
-}
-
-cadastrar(); // chamada automática ao abrir o controller
-?>
-
+    ?>
+    

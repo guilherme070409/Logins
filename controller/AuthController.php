@@ -1,4 +1,5 @@
 <?php
+<?php
 require '../model/AuthModel.php';
 require '../service/conexao.php';
 
@@ -45,3 +46,4 @@ class AuthController {
     }
 }
 ?>
+
