@@ -16,21 +16,18 @@ session_start();
         <div class="col-md-6">
 
             <!-- Mensagens de sucesso ou erro -->
-            <?php if(isset($_SESSION['msg_sucesso'])): ?>
-                <div class="alert alert-success">
-                    <?php 
-                        echo $_SESSION['msg_sucesso']; 
-                        unset($_SESSION['msg_sucesso']);
-                    ?>
-                </div>
-            <?php endif; ?>
+            <?php
+session_start();
+if(isset($_SESSION['msg_erro'])){
+    echo "<p style='color: red;'>".$_SESSION['msg_erro']."</p>";
+    unset($_SESSION['msg_erro']);
+}
+if(isset($_SESSION['msg_sucesso'])){
+    echo "<p style='color: green;'>".$_SESSION['msg_sucesso']."</p>";
+    unset($_SESSION['msg_sucesso']);
+}
+?>
 
-            <?php if(isset($_SESSION['msg_erro'])): ?>
-                <div class="alert alert-danger">
-                    <?php 
-                        echo $_SESSION['msg_erro']; 
-                        unset($_SESSION['msg_erro']);
-                    ?>
                 </div>
             <?php endif; ?>
 
@@ -39,8 +36,7 @@ session_start();
                     <h2>Cadastro</h2>
                 </div>
                 <div class="card-body">
-                    <form action="../../controller/CadastroController.php" method="POST">
-
+                <form method="POST" action="../../controller/CadastroController.php">
                         <div class="mb-3">
                             <label for="Nome" class="form-label">Nome completo</label>
                             <input type="text" class="form-control" name="Nome" id="Nome" required>
