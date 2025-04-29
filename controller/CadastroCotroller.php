@@ -12,32 +12,45 @@ if($_POST){
     $repita = $_POST['repita'];
 
     // Verificar se as senhas são iguais
-    if($password != $repita){
-        $_SESSION['msg_erro'] = "As senhas não coincidem.";
-        header("Location: ../view/Cadastro/cadastro.php");
-        exit();
-    }
-    
-    try {
-        // Faz o hash da senha
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    <?php
+require '../model/CadastroModel.php';
+require '../service/conexao.php';
+session_start();
 
-        // Cadastra usuário
-        $result = register($fullName, $username, $email, $passwordHash);
-        
-        if($result){
-            $_SESSION['msg_sucesso'] = "Cadastro realizado com sucesso!";
-            header("Location: ../view/index.php"); // <-- aqui manda para o index.php
-            exit();
-        } else {
-            $_SESSION['msg_erro'] = "Não foi possível realizar o cadastro.";
+function cadastrar() {
+    if($_POST){
+        $fullName = $_POST['Nome'];
+        $email = $_POST['Email'];
+        $password = $_POST['Senha'];
+        $repita = $_POST['repita'];
+
+        if($password != $repita){
+            $_SESSION['msg_erro'] = "As senhas não coincidem.";
             header("Location: ../view/cadastro/cadastro.php");
             exit();
         }
-    } catch (Exception $e) {
-        $_SESSION['msg_erro'] = "Erro: " . $e->getMessage();
-        header("Location: ../view/cadastro/cadastro.php");
-        exit();
+
+        try {
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            $result = register($fullName, $email, $passwordHash);
+
+            if($result){
+                $_SESSION['msg_sucesso'] = "Cadastro realizado com sucesso!";
+                header("Location: ../index.php");
+                exit();
+            } else {
+                $_SESSION['msg_erro'] = "Não foi possível realizar o cadastro.";
+                header("Location: ../view/cadastro/cadastro.php");
+                exit();
+            }
+        } catch (Exception $e) {
+            $_SESSION['msg_erro'] = "Erro: " . $e->getMessage();
+            header("Location: ../view/cadastro/cadastro.php");
+            exit();
+        }
     }
 }
+
+cadastrar(); // chamada automática ao abrir o controller
 ?>
+
