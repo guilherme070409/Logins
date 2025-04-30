@@ -1,30 +1,32 @@
 <?php
-require_once '../model/CadastroModel.php';
-require_once '../service/conexao.php';
-
 session_start();
+require_once '../service/conexao.php';
+require_once '../model/CadastroModel.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome = $_POST['Nome'];
     $email = $_POST['Email'];
     $senha = $_POST['Senha'];
-    $repita = $_POST['repita'];
-
-    // Validação básica
-    if ($senha != $repita) {
+    
+    // Validações básicas
+    if ($_POST['Senha'] != $_POST['repita']) {
         $_SESSION['msg_erro'] = "As senhas não coincidem!";
-        header("Location: ../view/cadastro/cadastro.php");
+        header("Location: /seu_projeto/view/cadastro/cadastro.php");
         exit();
     }
 
-    $cadastroModel = new CadastroModel($conexao);
+    // Conexão e cadastro (exemplo simplificado)
+    $conexao = new mysqli("localhost", "root", "", "logins");
+    $sql = "INSERT INTO usuario (NOME_DE_USUARIO, `E-MAIL`, SENHA) VALUES (?, ?, ?)";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("sss", $nome, $email, $senha);
     
-    if ($cadastroModel->cadastrar($nome, $email, $senha)) {
-        $_SESSION['msg_sucesso'] = "Cadastro realizado! Faça login.";
-        header("Location: ../view/index.php");
+    if ($stmt->execute()) {
+        $_SESSION['msg_sucesso'] = "Cadastro realizado com sucesso!";
+        header("Location: /seu_projeto/view/index.php");
     } else {
-        $_SESSION['msg_erro'] = "Erro ao cadastrar. Tente outro email!";
-        header("Location: ../view/cadastro/cadastro.php");
+        $_SESSION['msg_erro'] = "Erro ao cadastrar: " . $conexao->error;
+        header("Location: /seu_projeto/view/cadastro/cadastro.php");
     }
     exit();
 }

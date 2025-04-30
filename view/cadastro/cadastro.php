@@ -31,7 +31,7 @@
                 <?php unset($_SESSION['msg_erro']); ?>
             <?php endif; ?>
 
-            <form action="../../controller/CadastroController.php" method="post">
+            <form action="/LOGINS/controller/CadastroController.php" method="post">.php" method="post">
                 <div class="mb-3">
                     <label class="form-label">Nome Completo</label>
                     <input type="text" name="Nome" class="form-control" required>
