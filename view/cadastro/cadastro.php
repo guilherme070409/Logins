@@ -1,55 +1,68 @@
-<?php
-session_start();
-?>
-
+<?php session_start(); ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../style/page.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card-cadastro {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2 class="text-center">Cadastro</h2>
+    <div class="container">
+        <div class="card card-cadastro">
+            <h2 class="text-center mb-4">Cadastre-se</h2>
 
-        <!-- Mensagens -->
-        <?php if(isset($_SESSION['msg_sucesso'])): ?>
-            <div class="alert alert-success">
-                <?= $_SESSION['msg_sucesso']; unset($_SESSION['msg_sucesso']); ?>
-            </div>
-        <?php endif; ?>
+            <?php if (isset($_SESSION['msg_erro'])): ?>
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <?= $_SESSION['msg_erro'] ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                <?php unset($_SESSION['msg_erro']); ?>
+            <?php endif; ?>
 
-        <?php if(isset($_SESSION['msg_erro'])): ?>
-            <div class="alert alert-danger">
-                <?= $_SESSION['msg_erro']; unset($_SESSION['msg_erro']); ?>
-            </div>
-        <?php endif; ?>
+            <form action="../../controller/CadastroController.php" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Nome Completo</label>
+                    <input type="text" name="Nome" class="form-control" required>
+                </div>
 
-        <form method="POST" action="../../controller/CadastroController.php">
-            <div class="mb-3">
-                <label for="Nome" class="form-label">Nome completo</label>
-                <input type="text" class="form-control" id="Nome" name="Nome" required>
-            </div>
-            <div class="mb-3">
-                <label for="Email" class="form-label">E-mail</label>
-                <input type="email" class="form-control" id="Email" name="Email" required>
-            </div>
-            <div class="mb-3">
-                <label for="Senha" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="Senha" name="Senha" required>
-            </div>
-            <div class="mb-3">
-                <label for="repita" class="form-label">Repita a Senha</label>
-                <input type="password" class="form-control" id="repita" name="repita" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
-        </form>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="Email" class="form-control" required>
+                </div>
 
-        <div class="mt-3 text-center">
-            <a href="../../index.php">Já tem conta? Entrar</a>
+                <div class="mb-3">
+                    <label class="form-label">Senha</label>
+                    <input type="password" name="Senha" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Repita a Senha</label>
+                    <input type="password" name="repita" class="form-control" required>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="../../view/index.php">Já tem conta? Faça login</a>
+            </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

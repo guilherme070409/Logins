@@ -1,49 +1,22 @@
 <?php
-<?php
-require '../model/AuthModel.php';
-require '../service/conexao.php';
+require_once '../model/AuthModel.php';
+require_once '../service/conexao.php';
 
 session_start();
 
-class AuthController {
-    public static function login() {
-        if($_POST){
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            
-            try {
-                if(loginUser($email, $password)){
-                    $_SESSION['msg_sucesso'] = "Login realizado com sucesso!";
-                    header("Location: ../view/pagina_inicial.php");
-                    exit();
-                } else {
-                    $_SESSION['msg_erro'] = "Email ou senha incorretos!";
-                    header("Location: ../view/index.php");
-                    exit();
-                }
-            } catch (Exception $e) {
-                $_SESSION['msg_erro'] = "Erro: " . $e->getMessage();
-                header("Location: ../view/index.php");
-                exit();
-            }
-        }
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $senha = $_POST['password'];
+
+    $authModel = new AuthModel($conexao);
     
-    public static function logout() {
-        session_destroy();
+    if ($authModel->login($email, $senha)) {
+        $_SESSION['msg_sucesso'] = "Login feito!";
+        header("Location: ../index2.php");
+    } else {
+        $_SESSION['msg_erro'] = "Email ou senha errados!";
         header("Location: ../view/index.php");
-        exit();
     }
-
-    public static function recuperarSenha() {
-        if($_POST && isset($_POST['email'])) {
-            $email = $_POST['email'];
-
-            $_SESSION['msg_recuperacao'] = "Se o email existir, enviaremos um link!";
-            header("Location: ../view/esqueceu a senha/esquecido.php");
-            exit();
-        }
-    }
+    exit();
 }
 ?>
-

@@ -15,17 +15,10 @@
     </style>
 </head>
 <body>
-<?php
-session_start();
-if (isset($_SESSION['msg_sucesso'])) {
-  echo '<p style="color: green">' . $_SESSION['msg_sucesso'] . '</p>';
-  unset($_SESSION['msg_sucesso']);
-}
-if (isset($_SESSION['msg_erro'])) {
-  echo '<p style="color: red">' . $_SESSION['msg_erro'] . '</p>';
-  unset($_SESSION['msg_erro']);
-}
-?>
+<?php if (isset($_SESSION['msg_erro'])): ?>
+        <div class="alert alert-danger"><?= $_SESSION['msg_erro'] ?></div>
+        <?php unset($_SESSION['msg_erro']); ?>
+    <?php endif; ?>
  <form action="../controller/AuthController.php" method="post">
 
   <div class="login-container">

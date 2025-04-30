@@ -1,17 +1,27 @@
 <?php
-require '../service/conexao.php';
+class CadastroModel {
+    private $conn;
 
-function register($fullname, $email, $senha) {
-    $conn = new usePDO;
-    $instance = $conn->getInstance();
-    
-   
-    $hashed_password = password_hash($senha, PASSWORD_DEFAULT);
+    public function __construct($conexao) {
+        $this->conn = $conexao;
+    }
 
-    $sql = "INSERT INTO usuario (NOME_DE_USUARIO, SENHA, `E-MAIL`) 
-            VALUES (?, ?, ?)";
-    
-    $stmt = $instance->prepare($sql);
-    return $stmt->execute([$fullname, $hashed_password, $email]);
+    public function cadastrar($nome, $email, $senha) {
+        // Verifica se email já existe
+        $sql = "SELECT ID FROM usuario WHERE `E-MAIL` = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        
+        if ($stmt->get_result()->num_rows > 0) {
+            return false; // Email já cadastrado
+        }
+
+        // Insere no banco (senha sem hash para simplificar)
+        $sql = "INSERT INTO usuario (NOME_DE_USUARIO, `E-MAIL`, SENHA) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("sss", $nome, $email, $senha);
+        return $stmt->execute();
+    }
 }
 ?>
