@@ -16,9 +16,21 @@
 </head>
 <body>
 <?php if (isset($_SESSION['msg_erro'])): ?>
-        <div class="alert alert-danger"><?= $_SESSION['msg_erro'] ?></div>
-        <?php unset($_SESSION['msg_erro']); ?>
-    <?php endif; ?>
+            <div class="alert alert-danger alert-dismissible fade show">
+                <?= $_SESSION['msg_erro'] ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <?php unset($_SESSION['msg_erro']); ?>
+        <?php endif; ?>
+        
+        <?php if (isset($_SESSION['msg_sucesso'])): ?>
+            <div class="alert alert-success alert-dismissible fade show">
+                <?= $_SESSION['msg_sucesso'] ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <?php unset($_SESSION['msg_sucesso']); ?>
+        <?php endif; ?>
+        
  <form action="../controller/AuthController.php" method="post">
 
   <div class="login-container">
