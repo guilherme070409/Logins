@@ -31,7 +31,7 @@
             <?php unset($_SESSION['msg_sucesso']); ?>
         <?php endif; ?>
         
- <form action="../controller/AuthController.php" method="post">
+        <form action="/Guilherme%20de%20Moura/GitHub/Logins/controller/AuthController.php" method="post">
 
   <div class="login-container">
       <ul class="nav nav-pills nav-justified mb-3">
