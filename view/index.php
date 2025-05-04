@@ -31,7 +31,7 @@
             <?php unset($_SESSION['msg_sucesso']); ?>
         <?php endif; ?>
         
-        <form action="/Guilherme%20de%20Moura/GitHub/Logins/controller/AuthController.php" method="post">
+        <form action="../controller/AuthController.php" method="post">
 
   <div class="login-container">
       <ul class="nav nav-pills nav-justified mb-3">
@@ -39,7 +39,7 @@
           <a class="nav-link active" href="index.php">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="cadastro/cadastro.php">Cadastro</a>
+          <a class="nav-link" href="cadastro.php">Cadastro</a>
         </li>
       </ul>
 
@@ -63,7 +63,7 @@
             </div>
           </div>
           <div class="col-md-6 d-flex justify-content-center">
-            <a href="esqueceu a senha/Esquecido.php">Esqueceu a senha?</a>
+            <a href="eEsquecido.php">Esqueceu a senha?</a>
           </div>
         </div>
   

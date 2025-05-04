@@ -1,6 +1,4 @@
 <?php
-require_once '../service/conexao.php';
-
 class AuthModel {
     private $conn;
 
@@ -9,18 +7,12 @@ class AuthModel {
     }
 
     public function login($email, $senha) {
-        // Consulta corrigida para buscar pelo email na tabela pessoa
-        $sql = "SELECT u.*, p.Nome, p.`E-MAIL` as email_pessoa 
-                FROM usuario u
-                JOIN pessoa p ON u.PESSOA_ID = p.ID
+        $sql = "SELECT u.*, p.Nome 
+                FROM LOGINS.usuario u
+                JOIN LOGINS.pessoa p ON u.PESSOA_ID = p.ID
                 WHERE p.`E-MAIL` = ?";
         
         $stmt = $this->conn->prepare($sql);
-        
-        if (!$stmt) {
-            throw new Exception("Erro na preparação da consulta: " . $this->conn->error);
-        }
-        
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -28,18 +20,15 @@ class AuthModel {
         if ($result->num_rows === 1) {
             $usuario = $result->fetch_assoc();
             
-            // Debug - Mostra os dados encontrados (verifique no php_error_log)
-            error_log("Dados do usuário encontrado: " . print_r($usuario, true));
+            // Debug (verifique no php_error_log)
+            error_log("Senha digitada: $senha | Hash armazenado: " . $usuario['SENHA']);
             
-            // Verificação de senha (compatível com hash ou texto plano)
             if ($senha === $usuario['SENHA'] || password_verify($senha, $usuario['SENHA'])) {
                 return [
                     'id' => $usuario['ID'],
                     'nome' => $usuario['Nome'],
-                    'email' => $usuario['email_pessoa']
+                    'email' => $email
                 ];
-            } else {
-                error_log("Senha não confere. Hash armazenado: " . $usuario['SENHA']);
             }
         }
         throw new Exception("Credenciais inválidas!");

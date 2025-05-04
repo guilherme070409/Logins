@@ -30,7 +30,7 @@
                 </div>
                 <?php unset($_SESSION['msg_erro']); ?>
             <?php endif; ?>
-            <form action="/Guilherme%20de%20Moura/GitHub/Logins/controller/CadastroController.php" method="post">
+            <form action="../Logins/controller/CadastroController.php" method="post">
                 <div class="mb-3">
                     <label class="form-label">Nome Completo</label>
                     <input type="text" name="Nome" class="form-control" required>
