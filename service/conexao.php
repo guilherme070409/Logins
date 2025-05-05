@@ -2,7 +2,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $senha = "";
-$banco = "LOGINS"; // Nome exato do banco (maiúsculas)
+$banco = "logins"; // Nome exato do banco (maiúsculas)
 
 $conexao = new mysqli($servidor, $usuario, $senha, $banco);
 

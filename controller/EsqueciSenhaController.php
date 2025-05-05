@@ -1,29 +1,43 @@
 <?php
-require_once '../service/conexao.php';
 session_start();
+require_once '../service/conexao.php'; // Arquivo de conexão com o banco
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] === 'recuperarSenha') {
     $email = $_POST['email'] ?? '';
 
-    $stmt = $conexao->prepare("SELECT ID FROM LOGINS.usuario WHERE `E-MAIL` = ?");
+    // Verifica se o e-mail existe na tabela usuario
+    $stmt = $conexao->prepare("SELECT ID FROM usuario WHERE `E-MAIL` = ?");
+    if (!$stmt) {
+        die("Erro no prepare (select): " . $conexao->error);
+    }
+
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $res = $stmt->get_result();
+    $resultado = $stmt->get_result();
 
-    if ($res->num_rows === 1) {
-        $usuario_id = $res->fetch_assoc()['ID'];
-        $codigo = strtoupper(bin2hex(random_bytes(3)));
+    if ($resultado->num_rows === 1) {
+        $usuario = $resultado->fetch_assoc();
+        $usuario_id = $usuario['ID'];
 
-        $insert = $conexao->prepare("INSERT INTO LOGINS.code (code, usuario_id) VALUES (?, ?)");
+        // Gera um código aleatório (ex: 6 letras/números)
+        $codigo = strtoupper(bin2hex(random_bytes(3))); // ex: "A1B2C3"
+
+        // Insere o código na tabela `code`
+        $insert = $conexao->prepare("INSERT INTO code (code, usuario_id) VALUES (?, ?)");
+        if (!$insert) {
+            die("Erro no prepare (insert): " . $conexao->error);
+        }
+
         $insert->bind_param("si", $codigo, $usuario_id);
         $insert->execute();
 
-        $_SESSION['msg_recuperacao'] = "Código de recuperação enviado com sucesso!";
+        // Mensagem simulando envio do código
+        $_SESSION['msg_recuperacao'] = "Um código foi enviado para o e-mail: $email";
     } else {
-        $_SESSION['msg_recuperacao'] = "Erro: E-mail não encontrado.";
+        $_SESSION['msg_recuperacao'] = "E-mail não encontrado.";
     }
 
-    header("Location: ../view/esqueci/recuperar_senha.php");
+    header("Location: ../view/Esquecido.php");
     exit();
 }
 ?>

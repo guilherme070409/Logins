@@ -20,9 +20,7 @@ session_start();
     <?php endif; ?>
 
     <div class="login-container">
-    <<form method="post" action="../../controller/EsqueciSenhaController.php">
-
-
+        <form method="post" action="../controller/EsqueciSenhaController.php">
             <input type="hidden" name="action" value="recuperarSenha">
             
             <h1>Recuperador de senha</h1>
@@ -41,6 +39,7 @@ session_start();
             <div class="text-center">
                 <p><a href="cadastro.php">Não cadastrado? cadastro</a></p>
                 <p><a href="index.php">você lembrou? login</a></p>
+                <p><a href="veru.php">Coloque o Codigo nessa pagina</a></p>
             </div>
         </form>
     </div>
