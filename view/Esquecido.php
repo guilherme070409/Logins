@@ -20,7 +20,8 @@ session_start();
     <?php endif; ?>
 
     <div class="login-container">
-    <form method="post" action="../controller/EsqueciSenhaController.php">
+    <<form method="post" action="../../controller/EsqueciSenhaController.php">
+
 
             <input type="hidden" name="action" value="recuperarSenha">
             
