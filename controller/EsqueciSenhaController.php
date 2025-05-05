@@ -1,28 +1,21 @@
-<?php// AuthController.php
-require_once '../model/AuthModel.php';
+<?php
 require_once '../service/conexao.php';
 session_start();
 
-$action = $_POST['action'] ?? '';
-
-if ($action === 'recuperarSenha') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
 
-    // Verifica se o e-mail existe
-    $stmt = $conexao->prepare("SELECT Nome FROM LOGINS.pessoa WHERE `E-MAIL` = ?");
+    $stmt = $conexao->prepare("SELECT ID FROM LOGINS.usuario WHERE `E-MAIL` = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $res = $stmt->get_result();
 
     if ($res->num_rows === 1) {
-        $usuario = $res->fetch_assoc()['Nome'];
-
-        // Gerar código aleatório (ex: 6 letras/números)
+        $usuario_id = $res->fetch_assoc()['ID'];
         $codigo = strtoupper(bin2hex(random_bytes(3)));
 
-        // Salvar código na tabela 'code'
-        $insert = $conexao->prepare("INSERT INTO code (usuario, code, lido) VALUES (?, ?, 0)");
-        $insert->bind_param("ss", $usuario, $codigo);
+        $insert = $conexao->prepare("INSERT INTO LOGINS.code (code, usuario_id) VALUES (?, ?)");
+        $insert->bind_param("si", $codigo, $usuario_id);
         $insert->execute();
 
         $_SESSION['msg_recuperacao'] = "Código de recuperação enviado com sucesso!";

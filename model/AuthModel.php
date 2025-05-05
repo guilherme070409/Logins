@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../service/conexao.php';
+
 class AuthModel {
     private $conn;
 
@@ -11,7 +13,7 @@ class AuthModel {
                 FROM LOGINS.usuario u
                 JOIN LOGINS.pessoa p ON u.PESSOA_ID = p.ID
                 WHERE p.`E-MAIL` = ?";
-        
+
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -19,11 +21,8 @@ class AuthModel {
 
         if ($result->num_rows === 1) {
             $usuario = $result->fetch_assoc();
-            
-            // Debug (verifique no php_error_log)
-            error_log("Senha digitada: $senha | Hash armazenado: " . $usuario['SENHA']);
-            
-            if ($senha === $usuario['SENHA'] || password_verify($senha, $usuario['SENHA'])) {
+
+            if (password_verify($senha, $usuario['SENHA'])) {
                 return [
                     'id' => $usuario['ID'],
                     'nome' => $usuario['Nome'],
@@ -31,6 +30,7 @@ class AuthModel {
                 ];
             }
         }
+
         throw new Exception("Credenciais inválidas!");
     }
 }

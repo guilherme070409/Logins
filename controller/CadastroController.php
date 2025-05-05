@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validação básica
     if ($senha != $repita) {
         $_SESSION['msg_erro'] = "As senhas não coincidem!";
-        header("Location: /Guilherme%20de%20Moura/GitHub/Logins/view/cadastro/cadastro.php");
+        header("Location: ../view/cadastro.php");
         exit();
     }
 
@@ -22,11 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($cadastroModel->cadastrar($nome, $email, $senha)) {
             $_SESSION['msg_sucesso'] = "Cadastro realizado com sucesso!";
-            header("Location: /Guilherme%20de%20Moura/GitHub/Logins/view/index.php");
+            header("Location: ../view/index.php");
         }
     } catch (Exception $e) {
         $_SESSION['msg_erro'] = "Erro ao cadastrar: " . $e->getMessage();
-        header("Location: /Guilherme%20de%20Moura/GitHub/Logins/view/cadastro/cadastro.php");
+        header("Location: ../view/cadastro.php");
     }
     exit();
 }

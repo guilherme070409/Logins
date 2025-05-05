@@ -25,21 +25,20 @@ class CadastroModel {
             
             // 3. Cadastra na tabela usuario
             $sqlUsuario = "INSERT INTO usuario (NOME_DE_USUARIO, SENHA, `E-MAIL`, PESSOA_ID) 
-                          VALUES (?, ?, ?, ?)";
+                           VALUES (?, ?, ?, ?)";
             $stmtUsuario = $this->conn->prepare($sqlUsuario);
             
-            // Usando password_hash para segurança (ponto extra!)
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
             $stmtUsuario->bind_param("sssi", $nome, $senhaHash, $email, $pessoa_id);
             
             if (!$stmtUsuario->execute()) {
                 throw new Exception("Erro ao cadastrar usuário");
             }
-            
+
             // Commit se tudo der certo
             $this->conn->commit();
             return true;
-            
+
         } catch (Exception $e) {
             // Rollback em caso de erro
             $this->conn->rollback();

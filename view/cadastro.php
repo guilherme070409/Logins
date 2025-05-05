@@ -30,6 +30,7 @@
                 </div>
                 <?php unset($_SESSION['msg_erro']); ?>
             <?php endif; ?>
+
             <form action="../controller/CadastroController.php" method="post">
                 <div class="mb-3">
                     <label class="form-label">Nome Completo</label>
@@ -57,7 +58,7 @@
             </form>
 
             <div class="text-center mt-3">
-                <a href="../../view/index.php">Já tem conta? Faça login</a>
+                <a href="index.php">Já tem conta? Faça login</a>
             </div>
         </div>
     </div>
