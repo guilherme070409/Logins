@@ -1,47 +1,42 @@
 <?php
-// Incluir a conexão com o banco de dados
-require_once '../conexao.php';
+// Incluir arquivos de conexão e funções
+require_once '../service/conexao.php';
+require_once '../service/funcoes.php';
 
-// Verificar se o código foi passado pela URL
-if (isset($_GET['code'])) {
-    $codigo = $_GET['code'];
+// Inicializar variáveis
+$erro = '';
+$sucesso = '';
 
-    // Aqui você pode verificar se o código existe na tabela 'code' antes de permitir a troca de senha.
-    $sql = "SELECT * FROM code WHERE code = ?";
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("s", $codigo);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+// Verificar se o código foi enviado via GET
+if (isset($_GET['codigo'])) {
+    $codigo = $_GET['codigo'];
 
-    if ($resultado->num_rows == 0) {
-        echo "Código inválido!";
-        exit;
-    }
-} else {
-    echo "Código não fornecido!";
-    exit;
-}
+    // Verificar se o código existe no banco
+    $codigoBanco = buscarCodigo($conexao, $codigo);
 
-// Verificar se o formulário foi enviado
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $senha1 = $_POST['senha1'];
-    $senha2 = $_POST['senha2'];
+    if ($codigoBanco) {
+        // Processar a troca de senha
+        if (isset($_POST['nova_senha']) && isset($_POST['confirmar_senha'])) {
+            $novaSenha = $_POST['nova_senha'];
+            $confirmarSenha = $_POST['confirmar_senha'];
 
-    // Verificar se as senhas são iguais
-    if ($senha1 === $senha2) {
-        // Atualizar a senha no banco
-        $sql = "UPDATE usuario SET SENHA = ? WHERE email = (SELECT email FROM code WHERE code = ?)";
-        $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("ss", $senha1, $codigo);
-
-        if ($stmt->execute()) {
-            echo "Senha alterada com sucesso!";
-        } else {
-            echo "Erro ao atualizar a senha.";
+            if ($novaSenha === $confirmarSenha) {
+                // Atualizar a senha no banco
+                if (atualizarSenha($conexao, $codigo, $novaSenha)) {
+                    $sucesso = "Senha atualizada com sucesso!";
+                } else {
+                    $erro = "Erro ao atualizar a senha!";
+                }
+            } else {
+                $erro = "As senhas não coincidem!";
+            }
         }
     } else {
-        echo "As senhas não coincidem!";
+        $erro = "Código inválido!";
     }
+} else {
+    header("Location: verificarCodigo.php");
+    exit();
 }
 ?>
 
@@ -51,23 +46,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trocar Senha</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h2 class="mt-5">Trocar Senha</h2>
 
-        <form method="POST" class="mt-4">
-            <div class="mb-3">
-                <label for="senha1" class="form-label">Nova Senha</label>
-                <input type="password" class="form-control" id="senha1" name="senha1" required>
-            </div>
-            <div class="mb-3">
-                <label for="senha2" class="form-label">Repita a Nova Senha</label>
-                <input type="password" class="form-control" id="senha2" name="senha2" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Alterar Senha</button>
-        </form>
-    </div>
+<h2>Trocar Senha</h2>
+
+<?php if ($erro): ?>
+    <div style="color: red;"><?php echo $erro; ?></div>
+<?php endif; ?>
+
+<?php if ($sucesso): ?>
+    <div style="color: green;"><?php echo $sucesso; ?></div>
+<?php endif; ?>
+
+<form method="POST">
+    <label for="nova_senha">Nova Senha:</label>
+    <input type="password" name="nova_senha" id="nova_senha" required>
+    <br>
+
+    <label for="confirmar_senha">Confirmar Senha:</label>
+    <input type="password" name="confirmar_senha" id="confirmar_senha" required>
+    <br>
+
+    <button type="submit">Trocar Senha</button>
+</form>
+
 </body>
 </html>
